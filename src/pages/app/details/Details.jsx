@@ -2,8 +2,10 @@ import React from "react";
 import style from "./Details.module.css";
 import coursesData from "../../../data/courses.json";
 //Third task: import useParams hook
-
+import { Link, useParams  } from "react-router-dom";
 function Details() {
+  const {itemId} = useParams();
+  const course = coursesData.find((course)=>course.id===itemId);
   return (
     //Third Task: get course id and match it with the data
     
@@ -12,17 +14,18 @@ function Details() {
         <div className={style.card_image}>
           <div className={style.image_container}>
             {/*Third task: image source here */}
-            <img src="**IMAGE**" alt="icons" />
+            <img src={course.img} alt="icons" />
           </div>
         </div>
         <div className={style.card_content}>
           {/*Third Task:  Title and Description here */}
-          <h1 className={style.card_title}>**TITLE**</h1>
-          <p className={style.card_description}>**DESCRIPTION**</p>
+          <h1 className={style.card_title}>{course.title}</h1>
+          <p className={style.card_description}>{course.description}</p>
         </div>
       </div>
       {/* Task4: create Link to the Learn Page */}
-      <button className={style.button}>Start Learning</button>
+      <Link to={`/learn/${course.id}`}><button className={style.button}>Learn</button></Link>
+
     </div>
   );
 }
